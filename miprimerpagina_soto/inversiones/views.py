@@ -91,3 +91,38 @@ class TransaccionDeleteView(DeleteView):
     model = Transaccion
     template_name = 'inversiones/eliminar_operacion.html'
     success_url = reverse_lazy('home')
+
+# --------------- CATEGORIAS ---------------
+
+class CategoriaListView(ListView):
+    model = Categoria
+    template_name = 'inversiones/categoria_list.html'
+    context_object_name = 'categorias'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = "Gestión de Categorías"
+        context['create_url'] = reverse_lazy('crear_categoria') 
+        return context
+
+class CategoriaCreateView(CreateView):
+    model = Categoria
+    form_class = CategoriaForm
+    template_name = 'inversiones/categoria_form.html'
+    success_url = reverse_lazy('categoria_list')
+
+class CategoriaUpdateView(UpdateView):
+    model = Categoria
+    form_class = CategoriaForm
+    template_name = 'inversiones/categoria_form.html'
+    success_url = reverse_lazy('categoria_list')
+
+class CategoriaDeleteView(DeleteView):
+    model = Categoria
+    template_name = 'inversiones/eliminar_generico.html'
+    success_url = reverse_lazy('categoria_list')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = "Eliminar Categoría"
+        context['cancel_url'] = reverse_lazy('categoria_list')
+        return context

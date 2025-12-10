@@ -44,6 +44,32 @@
             <hr class="sidebar-divider">
 
             <div class="sidebar-heading">
+                Gestión
+            </div>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseGestion"
+                    aria-expanded="true" aria-controls="collapseGestion">
+                    <i class="fas fa-fw fa-database"></i> <span>Tablas Maestras</span>
+                </a>
+                <div id="collapseGestion" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Mis Datos:</h6>
+                        <a class="collapse-item" href="{% url 'categoria_list' %}">Categorías</a>
+
+                        <a class="collapse-item" href="#">Activos</a>
+                        <a class="collapse-item" href="#">Cuentas</a>
+
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Registros:</h6>
+                        <a class="collapse-item" href="#">Transacciones</a>
+                    </div>
+                </div>
+            </li>
+
+            <hr class="sidebar-divider">
+
+            <div class="sidebar-heading">
                 Acciones
             </div>
 

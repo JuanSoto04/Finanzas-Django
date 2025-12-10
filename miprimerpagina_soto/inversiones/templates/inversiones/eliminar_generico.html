@@ -1,0 +1,40 @@
+{% extends 'inversiones/index.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card shadow mb-4 border-left-danger">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-danger">{{ titulo|default:"Eliminar Registro" }}</h6>
+                </div>
+
+                <div class="card-body text-center">
+                    <h4 class="small font-weight-bold mb-3">¿Estás seguro de que deseas eliminar este registro?</h4>
+
+                    <div class="alert alert-warning" role="alert">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>
+                        Se eliminará: <strong>"{{ object }}"</strong>
+                    </div>
+
+                    <p class="small text-muted mb-4">
+                        Esta acción no se puede deshacer.
+                    </p>
+
+                    <form method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-icon-split">
+                            <span class="icon text-white-50"><i class="fas fa-trash"></i></span>
+                            <span class="text">Sí, Eliminar</span>
+                        </button>
+
+                        <a href="{{ cancel_url }}" class="btn btn-secondary btn-icon-split">
+                            <span class="text">Cancelar</span>
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

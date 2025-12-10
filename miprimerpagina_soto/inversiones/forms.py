@@ -1,5 +1,5 @@
 from django import forms
-from .models import Transaccion
+from .models import *
 
 class TransaccionForm(forms.ModelForm):
     class Meta:
@@ -12,4 +12,12 @@ class TransaccionForm(forms.ModelForm):
             'cantidad': forms.NumberInput(attrs={'class': 'form-control', 'step': 'any'}),
             'precio': forms.NumberInput(attrs={'class': 'form-control', 'step': 'any'}),
             'fecha': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+        }
+
+class CategoriaForm(forms.ModelForm):
+    class Meta:
+        model = Categoria
+        fields = ['nombre']
+        widgets = {
+            'nombre': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ej: Cripto, Acciones...'}),
         }
