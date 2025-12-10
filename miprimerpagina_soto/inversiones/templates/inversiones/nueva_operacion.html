@@ -14,7 +14,12 @@
                 <div class="card-body">
 
                     <form method="post">
-                        {% csrf_token %} <div class="form-group">
+                        {% csrf_token %}
+                        <div class="form-group col-md-6">
+                            <label>Fecha de Operación:</label>
+                            {{ form.fecha }}
+                        </div>
+                        <div class="form-group">
                             <label>Activo:</label>
                             {{ form.activo }}
                         </div>

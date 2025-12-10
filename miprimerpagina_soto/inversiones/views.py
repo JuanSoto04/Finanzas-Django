@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.db.models import Sum
+from django.db.models import Sum, F, Case, When, DecimalField
 import datetime
 from .models import *
 from .forms import *
@@ -37,13 +37,39 @@ def home(request):
             nombres_grafico.append(cat.nombre)
             monto_grafico.append(float(total_cat))
 
+    # LÓGICA GRÁFICO DE EVOLUCIÓN (Línea de tiempo) ---
+
+    # Agrupamos por fecha y sumamos las compras y ventas
+    evolucion_data = Transaccion.objects.values('fecha').annotate(
+        neto=Sum(
+            Case(
+                When(tipo='COMPRA', then=F('precio')),
+                When(tipo='VENTA', then=-F('precio')), # Restamos si es venta
+                output_field=DecimalField()
+            )
+        )
+    ).order_by('fecha')
+
+    # Calculamos el acumulado día a día
+    fechas_evolucion = []
+    montos_evolucion = []
+    acumulado = 0
+
+    for dato in evolucion_data:
+        acumulado += float(dato['neto'])
+        # Formateamos la fecha a día/mes
+        fechas_evolucion.append(dato['fecha'].strftime("%d/%m"))
+        montos_evolucion.append(acumulado)
+
     context = {
         'total_inversion': total_inversion,
         'cantidad_operaciones': cantidad_operaciones,
         'inversion_mes': inversion_mes,      
         'ultimas_operaciones': ultimas_operaciones,
         'nombres': nombres_grafico,
-        'montos': monto_grafico,        
+        'montos': monto_grafico,
+        'fechas_evolucion': fechas_evolucion,
+        'montos_evolucion': montos_evolucion,        
     }
     return render(request, 'inversiones/index.html', context)
 
