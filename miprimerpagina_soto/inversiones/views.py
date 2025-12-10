@@ -38,12 +38,12 @@ def home(request):
             monto_grafico.append(float(total_cat))
 
     context = {
-        'total_invertido': total_inversion,
+        'total_inversion': total_inversion,
         'cantidad_operaciones': cantidad_operaciones,
         'inversion_mes': inversion_mes,      
         'ultimas_operaciones': ultimas_operaciones,
-        'labels_grafico': nombres_grafico,    
-        'data_grafico': monto_grafico,        
+        'nombres': nombres_grafico,
+        'montos': monto_grafico,        
     }
     return render(request, 'inversiones/index.html', context)
 
@@ -53,4 +53,15 @@ class TransaccionCreateView(CreateView):
     model = Transaccion
     form_class = TransaccionForm # Usamos el form que tiene los estilos CSS
     template_name = 'inversiones/nueva_operacion.html'
+    success_url = reverse_lazy('home')
+
+class TransaccionUpdateView(UpdateView):
+    model = Transaccion
+    form_class = TransaccionForm
+    template_name = 'inversiones/nueva_operacion.html'
+    success_url = reverse_lazy('home')
+
+class TransaccionDeleteView(DeleteView):
+    model = Transaccion
+    template_name = 'inversiones/eliminar_operacion.html'
     success_url = reverse_lazy('home')

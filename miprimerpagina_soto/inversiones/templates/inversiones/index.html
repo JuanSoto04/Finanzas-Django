@@ -165,8 +165,10 @@
                                                 <tr>
                                                     <th>Fecha</th>
                                                     <th>Tipo</th>
+                                                    <th>Categoria</th>
                                                     <th>Activo</th>
                                                     <th>Monto</th>
+                                                    <th>Acciones</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -177,8 +179,23 @@
                                                         class="{% if operacion.tipo == 'COMPRA' %}text-success{% else %}text-danger{% endif %} font-weight-bold">
                                                         {{ operacion.tipo }}
                                                     </td>
+                                                    <td>{{ operacion.activo.categoria}}</td>
                                                     <td>{{ operacion.activo }}</td>
                                                     <td>${{ operacion.precio|intcomma }}</td>
+                                                    <td>
+                                                        <a href="{% url 'editar_operacion' operacion.id %}"
+                                                            class="btn btn-sm btn-primary btn-icon-split">
+                                                            <span class="icon text-white-50">
+                                                                <i class="fas fa-edit"></i>
+                                                            </span>
+                                                        </a>
+                                                        <a href="{% url 'eliminar_operacion' operacion.id %}"
+                                                            class="btn btn-sm btn-danger btn-icon-split">
+                                                            <span class="icon text-white-50">
+                                                                <i class="fas fa-trash"></i>
+                                                            </span>
+                                                        </a>
+
                                                 </tr>
                                                 {% empty %}
                                                 <tr>
@@ -203,17 +220,7 @@
                                     <div class="chart-pie pt-4 pb-2">
                                         <canvas id="myPieChart"></canvas>
                                     </div>
-                                    <div class="mt-4 text-center small">
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> Cripto
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> Acciones
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> Bonos
-                                        </span>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -237,12 +244,57 @@
 
     <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
     <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
     <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
 
-    <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
-    <script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
-    <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+
+    <script>
+        // Configuración de estilo base (copiada de SB Admin 2 para mantener la estética)
+        Chart.defaults.font.family = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+        Chart.defaults.color = '#858796';
+
+        var ctx = document.getElementById("myPieChart");
+        var myPieChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: {{ nombres| safe }},  // Aquí entran tus etiquetas de Django
+        datasets: [{
+            data: {{ montos| safe }},  // Aquí entran tus números de Django
+            backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e', '#e74a3b', '#858796'], // Colores
+            hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf', '#dda20a', '#be2617', '#60616f'],
+            hoverBorderColor: "rgba(234, 236, 244, 1)",
+                }],
+            },
+        options: {
+            maintainAspectRatio: false,
+                tooltips: {
+                backgroundColor: "rgb(255,255,255)",
+                    bodyFontColor: "#858796",
+                        borderColor: '#dddfeb',
+                            borderWidth: 1,
+                                xPadding: 15,
+                                    yPadding: 15,
+                                        displayColors: false,
+                                            caretPadding: 10,
+                },
+            plugins: {
+                legend: {
+                    display: true,
+                        position: 'bottom',
+                            labels: {
+                        usePointStyle: true, // Hace que los puntitos de la leyenda sean redondos
+                            padding: 20
+                    }
+                }
+            },
+            cutout: '80%',
+            },
+        });
+    </script>
 
 </body>
 

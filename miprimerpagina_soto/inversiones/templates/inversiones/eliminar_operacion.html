@@ -1,0 +1,35 @@
+{% extends 'inversiones/index.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card shadow mb-4 border-left-danger">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-danger">Eliminar Transacción</h6>
+                </div>
+                <div class="card-body text-center">
+                    <h4 class="small font-weight-bold mb-3">¿Estás seguro de que deseas eliminar esta operación?</h4>
+
+                    <p class="mb-4">
+                        {{ object.tipo }} de {{ object.activo }} por ${{ object.precio }}<br>
+                        <small class="text-muted">Esta acción no se puede deshacer.</small>
+                    </p>
+
+                    <form method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-icon-split">
+                            <span class="icon text-white-50"><i class="fas fa-trash"></i></span>
+                            <span class="text">Sí, Eliminar</span>
+                        </button>
+
+                        <a href="{% url 'home' %}" class="btn btn-secondary btn-icon-split">
+                            <span class="text">Cancelar</span>
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
