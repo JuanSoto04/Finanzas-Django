@@ -1,0 +1,15 @@
+# Archivos de sistema y Python
+__pycache__/
+*.py[cod]
+.DS_Store
+
+# Entornos virtuales (por si acaso se crea uno en el futuro)
+venv/
+env/
+.env
+
+# Bases de datos
+*.sqlite3
+*.db
+pagina.db
+db.sqlite3
