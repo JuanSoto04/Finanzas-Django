@@ -4,4 +4,7 @@ from .views import *
 
 urlpatterns = [
     path('', home, name='home'),
+
+    # Rutas para las transacciones
+    path('nueva/', TransaccionCreateView.as_view(), name='nueva_operacion')
 ]

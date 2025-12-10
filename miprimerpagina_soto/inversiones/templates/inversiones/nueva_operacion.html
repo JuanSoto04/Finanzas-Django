@@ -1,0 +1,61 @@
+{% extends 'inversiones/index.html' %} {% load static %}
+
+{% block content %}
+<div class="container-fluid">
+
+    <h1 class="h3 mb-4 text-gray-800">Registrar Nueva Operación</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Detalles de la Transacción</h6>
+                </div>
+                <div class="card-body">
+
+                    <form method="post">
+                        {% csrf_token %} <div class="form-group">
+                            <label>Activo:</label>
+                            {{ form.activo }}
+                        </div>
+
+                        <div class="form-group">
+                            <label>Cuenta:</label>
+                            {{ form.cuenta }}
+                        </div>
+
+                        <div class="form-group">
+                            <label>Tipo de Operación:</label>
+                            {{ form.tipo }}
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Cantidad:</label>
+                                {{ form.cantidad }}
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Monto Total ($):</label>
+                                {{ form.precio }}
+                            </div>
+                        </div>
+
+                        <hr>
+                        <button type="submit" class="btn btn-success btn-icon-split">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-check"></i>
+                            </span>
+                            <span class="text">Guardar Operación</span>
+                        </button>
+
+                        <a href="{% url 'home' %}" class="btn btn-secondary btn-icon-split">
+                            <span class="text">Cancelar</span>
+                        </a>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
