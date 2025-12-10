@@ -75,6 +75,17 @@ def home(request):
 
 # --------------- TRANSACCIONES ---------------
 
+class TransaccionListView(ListView):
+    model = Transaccion
+    template_name = 'inversiones/transaccion_list.html'
+    context_object_name = 'transacciones'
+    ordering = ['-fecha']  # Ordenamos por fecha descendente
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = "Historial de Operaciones"
+        context['create_url'] = reverse_lazy('nueva_operacion') 
+        return context
+
 class TransaccionCreateView(CreateView):
     model = Transaccion
     form_class = TransaccionForm # Usamos el form que tiene los estilos CSS
@@ -125,4 +136,90 @@ class CategoriaDeleteView(DeleteView):
         context = super().get_context_data(**kwargs)
         context['titulo'] = "Eliminar Categoría"
         context['cancel_url'] = reverse_lazy('categoria_list')
+        return context
+    
+# --------------- ACTIVOS ---------------
+# --- CRUD DE ACTIVOS ---
+
+class ActivoListView(ListView):
+    model = Activo
+    template_name = 'inversiones/activos_list.html'
+    context_object_name = 'activos'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = "Gestión de Activos"
+        context['create_url'] = reverse_lazy('crear_activo')
+        return context
+
+
+class ActivoCreateView(CreateView):
+    model = Activo
+    form_class = ActivoForm
+    template_name = 'inversiones/categoria_form.html'
+    success_url = reverse_lazy('activos_list')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = "Nuevo Activo"
+        return context
+
+
+class ActivoUpdateView(UpdateView):
+    model = Activo
+    form_class = ActivoForm
+    template_name = 'inversiones/categoria_form.html'
+    success_url = reverse_lazy('activos_list')
+
+
+class ActivoDeleteView(DeleteView):
+    model = Activo
+    template_name = 'inversiones/eliminar_generico.html'
+    success_url = reverse_lazy('activos_list')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = "Eliminar Activo"
+        context['cancel_url'] = reverse_lazy('activos_list')
+        return context
+
+# --------------- CUENTAS ---------------
+# 1. LISTAR
+class CuentaListView(ListView):
+    model = Cuenta
+    template_name = 'inversiones/cuentas_list.html'
+    context_object_name = 'cuentas'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = "Gestión de Cuentas"
+        context['create_url'] = reverse_lazy('crear_cuenta')
+        return context
+
+class CuentaCreateView(CreateView):
+    model = Cuenta
+    form_class = CuentaForm
+    template_name = 'inversiones/categoria_form.html' 
+    success_url = reverse_lazy('cuentas_list')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = "Nueva Cuenta"
+        return context
+
+class CuentaUpdateView(UpdateView):
+    model = Cuenta
+    form_class = CuentaForm
+    template_name = 'inversiones/categoria_form.html' 
+    success_url = reverse_lazy('cuentas_list')
+
+class CuentaDeleteView(DeleteView):
+    model = Cuenta
+    template_name = 'inversiones/eliminar_generico.html'   
+    success_url = reverse_lazy('cuentas_list')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = "Eliminar Cuenta"
+        context['cancel_url'] = reverse_lazy('cuentas_list')
         return context

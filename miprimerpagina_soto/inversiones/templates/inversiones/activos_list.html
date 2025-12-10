@@ -1,0 +1,30 @@
+{% extends 'inversiones/base_list.html' %}
+
+{% block columns %}
+<tr>
+    <th>Símbolo</th>
+    <th>Nombre</th>
+    <th>Categoría</th>
+    <th style="width: 15%;">Acciones</th>
+</tr>
+{% endblock %}
+
+{% block rows %}
+{% for activo in activos %}
+<tr>
+    <td class="font-weight-bold text-primary">{{ activo.simbolo }}</td>
+    <td>{{ activo.nombre }}</td>
+
+    <td><span class="badge badge-secondary">{{ activo.categoria.nombre }}</span></td>
+
+    <td class="text-center">
+        <a href="{% url 'editar_activo' activo.pk %}" class="btn btn-warning btn-circle btn-sm" title="Editar">
+            <i class="fas fa-pen"></i>
+        </a>
+        <a href="{% url 'eliminar_activo' activo.pk %}" class="btn btn-danger btn-circle btn-sm" title="Eliminar">
+            <i class="fas fa-trash"></i>
+        </a>
+    </td>
+</tr>
+{% endfor %}
+{% endblock %}

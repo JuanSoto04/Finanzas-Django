@@ -1,0 +1,26 @@
+{% extends 'inversiones/base_list.html' %}
+
+{% block columns %}
+<tr>
+    <th>ID</th>
+    <th>Nombre de la Cuenta</th>
+    <th style="width: 15%;">Acciones</th>
+</tr>
+{% endblock %}
+
+{% block rows %}
+{% for cuenta in cuentas %}
+<tr>
+    <td>{{ cuenta.id }}</td>
+    <td class="font-weight-bold">{{ cuenta.nombre }}</td>
+    <td class="text-center">
+        <a href="{% url 'editar_cuenta' cuenta.pk %}" class="btn btn-warning btn-circle btn-sm" title="Editar">
+            <i class="fas fa-pen"></i>
+        </a>
+        <a href="{% url 'eliminar_cuenta' cuenta.pk %}" class="btn btn-danger btn-circle btn-sm" title="Eliminar">
+            <i class="fas fa-trash"></i>
+        </a>
+    </td>
+</tr>
+{% endfor %}
+{% endblock %}

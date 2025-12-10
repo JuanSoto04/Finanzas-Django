@@ -1,0 +1,46 @@
+{% extends 'inversiones/base_list.html' %}
+{% load humanize %}
+
+{% block columns %}
+<tr>
+    <th>Fecha</th>
+    <th>Tipo</th>
+    <th>Categoría</th>
+    <th>Activo</th>
+    <th>Cuenta</th>
+    <th>Cantidad</th>
+    <th>Monto Total</th>
+    <th style="width: 10%;">Acciones</th>
+</tr>
+{% endblock %}
+
+{% block rows %}
+{% for operacion in transacciones %}
+<tr>
+    <td>{{ operacion.fecha|date:"d/m/Y" }}</td>
+
+    <td class="{% if operacion.tipo == 'COMPRA' %}text-success{% else %}text-danger{% endif %} font-weight-bold">
+        {{ operacion.tipo }}
+    </td>
+
+    <td>{{ operacion.activo.categoria.nombre }}</td>
+
+    <td class="font-weight-bold">{{ operacion.activo.simbolo }}</td>
+
+    <td>{{ operacion.cuenta.nombre|default:"-" }}</td>
+
+    <td>{{ operacion.cantidad }}</td>
+
+    <td>${{ operacion.precio|intcomma }}</td>
+
+    <td class="text-center">
+        <a href="{% url 'editar_operacion' operacion.pk %}" class="btn btn-warning btn-circle btn-sm" title="Editar">
+            <i class="fas fa-pen"></i>
+        </a>
+        <a href="{% url 'eliminar_operacion' operacion.pk %}" class="btn btn-danger btn-circle btn-sm" title="Eliminar">
+            <i class="fas fa-trash"></i>
+        </a>
+    </td>
+</tr>
+{% endfor %}
+{% endblock %}

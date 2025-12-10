@@ -21,3 +21,21 @@ class CategoriaForm(forms.ModelForm):
         widgets = {
             'nombre': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ej: Cripto, Acciones...'}),
         }
+
+class ActivoForm(forms.ModelForm):
+    class Meta:
+        model = Activo
+        fields = ['simbolo', 'nombre', 'categoria'] # Pedimos Símbolo, Nombre y su Categoría
+        widgets = {
+            'simbolo': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ej: AAPL, BTC'}),
+            'nombre': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ej: Apple Inc., Bitcoin'}),
+            'categoria': forms.Select(attrs={'class': 'form-control'}), # Lista desplegable
+        }
+
+class CuentaForm(forms.ModelForm):
+    class Meta:
+        model = Cuenta
+        fields = ['nombre']
+        widgets = {
+            'nombre': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ej: Binance, Banco Galicia, Caja Fuerte...'}),
+        }
