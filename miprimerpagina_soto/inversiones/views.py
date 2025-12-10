@@ -118,14 +118,24 @@ class CategoriaListView(ListView):
 class CategoriaCreateView(CreateView):
     model = Categoria
     form_class = CategoriaForm
-    template_name = 'inversiones/categoria_form.html'
+    template_name = 'inversiones/generico_form.html'
     success_url = reverse_lazy('categoria_list')
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = "Nueva Categoría"
+        context['cancel_url'] = reverse_lazy('categoria_list')
+        return context
 
 class CategoriaUpdateView(UpdateView):
     model = Categoria
     form_class = CategoriaForm
-    template_name = 'inversiones/categoria_form.html'
+    template_name = 'inversiones/generico_form.html'
     success_url = reverse_lazy('categoria_list')
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = "Editar Categoría"
+        context['cancel_url'] = reverse_lazy('categoria_list')
+        return context
 
 class CategoriaDeleteView(DeleteView):
     model = Categoria
@@ -156,20 +166,26 @@ class ActivoListView(ListView):
 class ActivoCreateView(CreateView):
     model = Activo
     form_class = ActivoForm
-    template_name = 'inversiones/categoria_form.html'
+    template_name = 'inversiones/generico_form.html'
     success_url = reverse_lazy('activos_list')
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = "Nuevo Activo"
+        context['cancel_url'] = reverse_lazy('activos_list')
         return context
 
 
 class ActivoUpdateView(UpdateView):
     model = Activo
     form_class = ActivoForm
-    template_name = 'inversiones/categoria_form.html'
+    template_name = 'inversiones/generico_form.html'
     success_url = reverse_lazy('activos_list')
+    def get_context_data(self, **kwargs): 
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = "Editar Activo"
+        context['cancel_url'] = reverse_lazy('activos_list')
+        return context
 
 
 class ActivoDeleteView(DeleteView):
@@ -184,7 +200,7 @@ class ActivoDeleteView(DeleteView):
         return context
 
 # --------------- CUENTAS ---------------
-# 1. LISTAR
+
 class CuentaListView(ListView):
     model = Cuenta
     template_name = 'inversiones/cuentas_list.html'
@@ -199,19 +215,26 @@ class CuentaListView(ListView):
 class CuentaCreateView(CreateView):
     model = Cuenta
     form_class = CuentaForm
-    template_name = 'inversiones/categoria_form.html' 
+    template_name = 'inversiones/generico_form.html' 
     success_url = reverse_lazy('cuentas_list')
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = "Nueva Cuenta"
+        context['cancel_url'] = reverse_lazy('cuentas_list')
         return context
 
 class CuentaUpdateView(UpdateView):
     model = Cuenta
     form_class = CuentaForm
-    template_name = 'inversiones/categoria_form.html' 
+    template_name = 'inversiones/generico_form.html' 
     success_url = reverse_lazy('cuentas_list')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = "Editar Cuenta"
+        context['cancel_url'] = reverse_lazy('cuentas_list')
+        return context
 
 class CuentaDeleteView(DeleteView):
     model = Cuenta
