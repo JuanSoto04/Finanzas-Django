@@ -28,4 +28,7 @@ urlpatterns = [
     path('cuentas/nueva/', CuentaCreateView.as_view(), name='crear_cuenta'),
     path('cuentas/editar/<int:pk>/', CuentaUpdateView.as_view(), name='editar_cuenta'),
     path('cuentas/eliminar/<int:pk>/', CuentaDeleteView.as_view(), name='eliminar_cuenta'),
+
+    # RUTA SOBRE MI
+    path('sobre_mi/', SobreMiView.as_view(), name='sobre_mi'),
 ]

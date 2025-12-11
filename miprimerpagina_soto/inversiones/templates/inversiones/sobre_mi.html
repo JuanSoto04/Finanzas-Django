@@ -1,0 +1,96 @@
+{% extends 'inversiones/index.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid">
+
+    <div class="row justify-content-center">
+        <div class="col-xl-8 col-lg-10">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Sobre Mi</h6>
+                </div>
+
+                <div class="card-body">
+                    <div class="row align-items-center">
+
+                        <div class="col-md-4 text-center">
+                            <img class="img-profile rounded-circle mb-3 shadow"
+                                src="{% static 'img/undraw_profile.svg' %}"
+                                style="width: 180px; height: 180px; object-fit: cover;">
+                        </div>
+
+                        <div class="col-md-8">
+                            <h2 class="font-weight-bold text-gray-800">Tu Nombre Aquí</h2>
+                            <h5 class="text-primary mb-3">Data Scientist | Data Analytics | Estudiante apasionado por
+                                las Finanzas</h5>
+
+                            <p class="text-gray-600 mb-4">
+                                ¡Hola! Soy <strong>Juan Pablo Soto</strong>, tengo <strong>21 años</strong> y
+                                actualmente estoy cursando la
+                                <strong>Diplomatura en Data Science en CoderHouse</strong>. Me apasionan la ciencia de
+                                datos y el análisis,
+                                utilizando herramientas como <strong>Python</strong>, <strong>SQL</strong> y
+                                <strong>Power BI</strong> para transformar
+                                información en valor real.
+                            </p>
+                            <p>
+                                Además de mi formación tecnológica, tengo un fuerte interés por el mundo de las
+                                <strong>finanzas</strong> y me estoy formando activamente en este ámbito para integrar
+                                mis conocimientos de datos con el análisis financiero.
+                            </p>
+                            <p>
+                                Uno de mis hobbies más importantes es el estudio de idiomas. Cuento con certificaciones
+                                en
+                                <strong>inglés</strong>, actualmente estoy aprendiendo <strong>japonés</strong> y
+                                tambien se un poco
+                                de portugues e italiano. Me encantan los desafíos
+                                intelectuales y culturales que los idiomas ofrecen.
+                            </p>
+
+                            <p>
+                                Esta aplicación fue desarrollada con <strong>Django</strong> como parte de un proyecto
+                                académico,
+                                con el objetivo de aplicar conceptos de programación, manejo de datos y visualización
+                                financiera.
+                                Mi intención es seguir creciendo profesionalmente en el mundo del análisis de datos y
+                                las finanzas,
+                                creando herramientas que combinen tecnología, información y toma de decisiones.
+                            </p>
+
+                            <hr>
+
+                            <div class="my-3">
+                                <a href="https://www.linkedin.com/in/juan-pablo-soto-/" target="_blank"
+                                    class="btn btn-primary btn-icon-split mr-2">
+                                    <span class="icon text-white-50">
+                                        <i class="fab fa-linkedin-in"></i>
+                                    </span>
+                                    <span class="text">LinkedIn</span>
+                                </a>
+
+                                <a href="https://github.com/JuanSoto04" target="_blank"
+                                    class="btn btn-dark btn-icon-split mr-2">
+                                    <span class="icon text-white-50">
+                                        <i class="fab fa-github"></i>
+                                    </span>
+                                    <span class="text">GitHub</span>
+                                </a>
+
+                                <a href="mailto:soto.juanpablo04@gmail.com" class="btn btn-danger btn-icon-split">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-envelope"></i>
+                                    </span>
+                                    <span class="text">Contactar</span>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

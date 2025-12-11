@@ -4,7 +4,7 @@ from django.db.models import Sum, F, Case, When, DecimalField
 import datetime
 from .models import *
 from .forms import *
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, TemplateView
 
 def home(request):
     # Calculamos el total invertido
@@ -246,3 +246,8 @@ class CuentaDeleteView(DeleteView):
         context['titulo'] = "Eliminar Cuenta"
         context['cancel_url'] = reverse_lazy('cuentas_list')
         return context
+
+
+# SOBRE MI
+class SobreMiView(TemplateView): # USE TEMPLATEVIEW PORQUE SE RECOMIENDA PARA PÁGINAS ESTÁTICAS
+    template_name = "inversiones/sobre_mi.html"
