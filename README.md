@@ -36,4 +36,8 @@ Sistema web para la gestión y seguimiento de inversiones personales, desarrolla
    ```bash
    python manage.py runserver
 5. Ingresa en el navegador a `localhost:8000`
+
+
+## Desarrollado por Soto Juan Pablo - 2025
+
    
