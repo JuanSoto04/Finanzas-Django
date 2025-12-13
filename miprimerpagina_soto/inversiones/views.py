@@ -5,6 +5,9 @@ import datetime
 from .models import *
 from .forms import *
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, TemplateView
+from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required 
 
 def home(request):
     # Calculamos el total invertido
@@ -13,7 +16,6 @@ def home(request):
     cantidad_operaciones = Transaccion.objects.count()
     # Obtenemos la última transacción realizada
     ultimas_operaciones = Transaccion.objects.order_by('-fecha')[:5]
-    # Si no hay inversiones, aseguramos que total_inversion sea 0
 
     hoy = datetime.date.today()
     inversion_mes = Transaccion.objects.filter(
@@ -75,7 +77,7 @@ def home(request):
 
 # --------------- TRANSACCIONES ---------------
 
-class TransaccionListView(ListView):
+class TransaccionListView(LoginRequiredMixin,ListView):
     model = Transaccion
     template_name = 'inversiones/transaccion_list.html'
     context_object_name = 'transacciones'
@@ -86,19 +88,19 @@ class TransaccionListView(ListView):
         context['create_url'] = reverse_lazy('nueva_operacion') 
         return context
 
-class TransaccionCreateView(CreateView):
+class TransaccionCreateView(LoginRequiredMixin,CreateView):
     model = Transaccion
     form_class = TransaccionForm # Usamos el form que tiene los estilos CSS
     template_name = 'inversiones/nueva_operacion.html'
     success_url = reverse_lazy('home')
 
-class TransaccionUpdateView(UpdateView):
+class TransaccionUpdateView(LoginRequiredMixin,UpdateView):
     model = Transaccion
     form_class = TransaccionForm
     template_name = 'inversiones/nueva_operacion.html'
     success_url = reverse_lazy('home')
 
-class TransaccionDeleteView(DeleteView):
+class TransaccionDeleteView(LoginRequiredMixin,DeleteView):
     model = Transaccion
     template_name = 'inversiones/eliminar_operacion.html'
     success_url = reverse_lazy('home')
@@ -115,7 +117,7 @@ class CategoriaListView(ListView):
         context['create_url'] = reverse_lazy('crear_categoria') 
         return context
 
-class CategoriaCreateView(CreateView):
+class CategoriaCreateView(LoginRequiredMixin,CreateView):
     model = Categoria
     form_class = CategoriaForm
     template_name = 'inversiones/generico_form.html'
@@ -126,7 +128,7 @@ class CategoriaCreateView(CreateView):
         context['cancel_url'] = reverse_lazy('categoria_list')
         return context
 
-class CategoriaUpdateView(UpdateView):
+class CategoriaUpdateView(LoginRequiredMixin,UpdateView):
     model = Categoria
     form_class = CategoriaForm
     template_name = 'inversiones/generico_form.html'
@@ -137,7 +139,7 @@ class CategoriaUpdateView(UpdateView):
         context['cancel_url'] = reverse_lazy('categoria_list')
         return context
 
-class CategoriaDeleteView(DeleteView):
+class CategoriaDeleteView(LoginRequiredMixin,DeleteView):
     model = Categoria
     template_name = 'inversiones/eliminar_generico.html'
     success_url = reverse_lazy('categoria_list')
@@ -151,7 +153,7 @@ class CategoriaDeleteView(DeleteView):
 # --------------- ACTIVOS ---------------
 # --- CRUD DE ACTIVOS ---
 
-class ActivoListView(ListView):
+class ActivoListView(LoginRequiredMixin,ListView):
     model = Activo
     template_name = 'inversiones/activos_list.html'
     context_object_name = 'activos'
@@ -163,7 +165,7 @@ class ActivoListView(ListView):
         return context
 
 
-class ActivoCreateView(CreateView):
+class ActivoCreateView(LoginRequiredMixin,CreateView):
     model = Activo
     form_class = ActivoForm
     template_name = 'inversiones/generico_form.html'
@@ -176,7 +178,7 @@ class ActivoCreateView(CreateView):
         return context
 
 
-class ActivoUpdateView(UpdateView):
+class ActivoUpdateView(LoginRequiredMixin,UpdateView):
     model = Activo
     form_class = ActivoForm
     template_name = 'inversiones/generico_form.html'
@@ -188,7 +190,7 @@ class ActivoUpdateView(UpdateView):
         return context
 
 
-class ActivoDeleteView(DeleteView):
+class ActivoDeleteView(LoginRequiredMixin,DeleteView):
     model = Activo
     template_name = 'inversiones/eliminar_generico.html'
     success_url = reverse_lazy('activos_list')
@@ -201,7 +203,7 @@ class ActivoDeleteView(DeleteView):
 
 # --------------- CUENTAS ---------------
 
-class CuentaListView(ListView):
+class CuentaListView(LoginRequiredMixin,ListView):
     model = Cuenta
     template_name = 'inversiones/cuentas_list.html'
     context_object_name = 'cuentas'
@@ -212,7 +214,7 @@ class CuentaListView(ListView):
         context['create_url'] = reverse_lazy('crear_cuenta')
         return context
 
-class CuentaCreateView(CreateView):
+class CuentaCreateView(LoginRequiredMixin,CreateView):
     model = Cuenta
     form_class = CuentaForm
     template_name = 'inversiones/generico_form.html' 
@@ -224,7 +226,7 @@ class CuentaCreateView(CreateView):
         context['cancel_url'] = reverse_lazy('cuentas_list')
         return context
 
-class CuentaUpdateView(UpdateView):
+class CuentaUpdateView(LoginRequiredMixin,UpdateView):
     model = Cuenta
     form_class = CuentaForm
     template_name = 'inversiones/generico_form.html' 
@@ -236,7 +238,7 @@ class CuentaUpdateView(UpdateView):
         context['cancel_url'] = reverse_lazy('cuentas_list')
         return context
 
-class CuentaDeleteView(DeleteView):
+class CuentaDeleteView(LoginRequiredMixin,DeleteView):
     model = Cuenta
     template_name = 'inversiones/eliminar_generico.html'   
     success_url = reverse_lazy('cuentas_list')
@@ -251,3 +253,12 @@ class CuentaDeleteView(DeleteView):
 # SOBRE MI
 class SobreMiView(TemplateView): # USE TEMPLATEVIEW PORQUE SE RECOMIENDA PARA PÁGINAS ESTÁTICAS
     template_name = "inversiones/sobre_mi.html"
+
+# --------------- LOGIN / LOGOUT ---------------
+
+class CustomLoginView(LoginView):
+    template_name = 'registration/login.html'
+    redirect_authenticated_user = True
+
+    def get_success_url(self):
+        return reverse_lazy('home')

@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from .views import *
+from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('', home, name='home'),
@@ -31,4 +32,8 @@ urlpatterns = [
 
     # RUTA SOBRE MI
     path('sobre_mi/', SobreMiView.as_view(), name='sobre_mi'),
+
+    # RUTAS LOGIN / LOGOUT
+    path('login/', CustomLoginView.as_view(), name='login'),
+    path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
 ]
