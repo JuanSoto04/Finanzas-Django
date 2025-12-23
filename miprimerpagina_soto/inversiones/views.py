@@ -8,7 +8,10 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView, T
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required 
+from django.contrib import messages
+from django.shortcuts import redirect
 
+@login_required
 def home(request):
     # Calculamos el total invertido
     total_inversion = Transaccion.objects.aggregate(total=Sum('precio'))['total']
@@ -262,3 +265,18 @@ class CustomLoginView(LoginView):
 
     def get_success_url(self):
         return reverse_lazy('home')
+    
+
+# --------------- REGISTER DE USUARIO ---------------
+
+def registro(request):
+    if request.method == 'POST':
+        form = RegistroUsuarioForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Cuenta creada para {username}! Ya puedes loguearte.')
+            return redirect('login')
+    else:
+        form = RegistroUsuarioForm()
+    return render(request, 'registration/registro.html', {'form': form})

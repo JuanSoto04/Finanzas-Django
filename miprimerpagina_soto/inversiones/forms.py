@@ -1,5 +1,7 @@
 from django import forms
 from .models import *
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
 class TransaccionForm(forms.ModelForm):
     class Meta:
@@ -39,3 +41,12 @@ class CuentaForm(forms.ModelForm):
         widgets = {
             'nombre': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ej: Binance, Banco Galicia, Caja Fuerte...'}),
         }
+
+class RegistroUsuarioForm(UserCreationForm):
+    email = forms.EmailField(required=True)
+    first_name = forms.CharField(required=True, label="Nombre")
+    last_name = forms.CharField(required=True, label="Apellido")
+
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email']

@@ -36,4 +36,7 @@ urlpatterns = [
     # RUTAS LOGIN / LOGOUT
     path('login/', CustomLoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
+
+    # RUTA REGISTRO USUARIO
+    path('registro/', registro, name='registro'),
 ]
