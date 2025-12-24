@@ -39,4 +39,5 @@ urlpatterns = [
 
     # RUTA REGISTRO USUARIO
     path('registro/', registro, name='registro'),
+    path('perfil/', editar_perfil, name='editar_perfil'),
 ]

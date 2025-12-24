@@ -40,7 +40,7 @@ class Transaccion(models.Model):
 
 class Perfil(models.Model):
     usuario = models.OneToOneField(User, on_delete=models.CASCADE)
-    imagen = models.ImageField(default='perfil_default.jpg', upload_to='fotos_perfil')
+    imagen = models.ImageField(default='perfil_default.png', upload_to='fotos_perfil')
 
     def __str__(self):
         return f'Perfil de {self.usuario.username}'
