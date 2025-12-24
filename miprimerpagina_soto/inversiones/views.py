@@ -10,6 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required 
 from django.contrib import messages
 from django.shortcuts import redirect
+from django.db.models import Q
 
 @login_required
 def home(request):
@@ -84,7 +85,21 @@ class TransaccionListView(LoginRequiredMixin,ListView):
     model = Transaccion
     template_name = 'inversiones/transaccion_list.html'
     context_object_name = 'transacciones'
-    ordering = ['-fecha']  # Ordenamos por fecha descendente
+
+    def get_queryset(self):
+        queryset = Transaccion.objects.filter(cuenta__usuario=self.request.user)
+        queryset = queryset.order_by('-fecha')
+        busqueda = self.request.GET.get('buscar')
+        
+        if busqueda:
+            queryset = queryset.filter(
+                Q(activo__simbolo__icontains=busqueda) |
+                Q(activo__nombre__icontains=busqueda) |  
+                Q(tipo__icontains=busqueda)   
+            )
+        
+        return queryset
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = "Historial de Operaciones"
@@ -228,6 +243,9 @@ class CuentaCreateView(LoginRequiredMixin,CreateView):
         context['titulo'] = "Nueva Cuenta"
         context['cancel_url'] = reverse_lazy('cuentas_list')
         return context
+    def form_valid(self, form):
+        form.instance.usuario = self.request.user 
+        return super().form_valid(form)
 
 class CuentaUpdateView(LoginRequiredMixin,UpdateView):
     model = Cuenta

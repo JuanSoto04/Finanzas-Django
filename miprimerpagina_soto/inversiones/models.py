@@ -11,10 +11,11 @@ class Categoria(models.Model):
         return self.nombre
 
 class Cuenta(models.Model):
-    nombre = models.CharField(max_length=50) # Ej: Binance, IOL
+    nombre = models.CharField(max_length=50)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     
     def __str__(self):
-        return self.nombre
+        return f"{self.nombre} ({self.usuario.username if self.usuario else 'Sin usuario'})"
 
 class Activo(models.Model):
     simbolo = models.CharField(max_length=10) # Ej: BTC

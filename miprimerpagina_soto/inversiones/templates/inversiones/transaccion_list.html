@@ -1,6 +1,26 @@
 {% extends 'inversiones/base_list.html' %}
 {% load humanize %}
 
+{% block search %}
+<form method="GET" class="d-none d-sm-inline-block form-inline mr-auto my-2 my-md-0 mw-100 navbar-search mb-3">
+    <div class="input-group">
+        <input type="text" class="form-control bg-light border-0 small" placeholder="Buscar transacción..."
+            name="buscar" value="{{ request.GET.buscar|default:'' }}">
+        <div class="input-group-append">
+            <button class="btn btn-primary" type="submit">
+                <i class="fas fa-search fa-sm"></i>
+            </button>
+
+            {% if request.GET.buscar %}
+            <a href="{% url 'transacciones_list' %}" class="btn btn-danger ml-1" title="Limpiar búsqueda">
+                <i class="fas fa-times fa-sm"></i>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</form>
+{% endblock %}
+
 {% block columns %}
 <tr>
     <th>Fecha</th>
@@ -24,13 +44,9 @@
     </td>
 
     <td>{{ operacion.activo.categoria.nombre }}</td>
-
     <td class="font-weight-bold">{{ operacion.activo.simbolo }}</td>
-
     <td>{{ operacion.cuenta.nombre|default:"-" }}</td>
-
     <td>{{ operacion.cantidad }}</td>
-
     <td>${{ operacion.precio|intcomma }}</td>
 
     <td class="text-center">
