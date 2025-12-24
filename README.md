@@ -2,6 +2,11 @@
 
 Sistema web para la gestión y seguimiento de inversiones personales, desarrollado con Django. Permite registrar compras/ventas de activos, visualizar la distribución de la cartera y analizar la evolución del patrimonio.
 
+## 🎥 Video Demostración
+Puedes ver un recorrido completo por las funcionalidades del sistema (Login, CRUD, Buscador y Perfil) en el siguiente enlace:
+
+👉 **[Ver Demo en Loom (5 min)](https://www.loom.com/share/b8fab5b33c7747a6863b8c01fcc6d305)**
+
 ## 🚀 Funcionalidades Principales
 
 ### 👤 Gestión de Usuarios (NUEVO)
