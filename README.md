@@ -2,26 +2,37 @@
 
 Sistema web para la gestión y seguimiento de inversiones personales, desarrollado con Django. Permite registrar compras/ventas de activos, visualizar la distribución de la cartera y analizar la evolución del patrimonio.
 
-## 🚀 Funcionalidades
+## 🚀 Funcionalidades Principales
 
+### 👤 Gestión de Usuarios (NUEVO)
+- **Sistema de Registro y Login:** Autenticación segura de usuarios.
+- **Perfiles Personalizados:** Cada usuario puede subir y editar su **foto de perfil (Avatar)**.
+- **Privacidad:** La información (cuentas y transacciones) es privada y exclusiva de cada usuario.
+
+### 📊 Gestión de Inversiones
 - **Dashboard Interactivo:** Gráficos de distribución (Dona) y evolución histórica (Línea) usando Chart.js.
-- **Gestión Completa (CRUD):**
-  - Alta, Baja y Modificación de Operaciones.
-  - Tablas Maestras para Categorías, Activos y Cuentas.
-- **Perfil:** Sección "Sobre Mí" del desarrollador.
+- **CRUD Completo:** Alta, Baja y Modificación de transacciones financieras.
+- **Buscador Inteligente:** Filtro de transacciones por símbolo (ej: AAPL) o tipo (Compra/Venta).
+
+### ⚙️ Administración
+- Tablas Maestras para Categorías, Activos y Cuentas.
+- Página "Sobre Mí" con información del desarrollador.
 
 ## 🛠️ Tecnologías Utilizadas
 
 - **Backend:** Python, Django.
 - **Frontend:** HTML5, CSS3, Bootstrap (Plantilla SB Admin 2).
-- **Base de Datos:** SQLite (por defecto).
-- **Librerías Extra:** `django-humanize`, `Chart.js`.
+- **Base de Datos:** SQLite.
+- **Librerías Extra:** - `django-humanize` (Formato de moneda).
+  - `Chart.js` (Gráficos).
+  - `Pillow` (Gestión de imágenes).
 
-## ⚙️ Instalación
+## ⚙️ Instalación y Ejecución
 
 1. **Clonar el repositorio:**
    ```bash
    git clone [https://github.com/JuanSoto04/Finanzas-Django.git](https://github.com/JuanSoto04/Finanzas-Django.git)
+   cd Finanzas-Django
 
 2. **Instalar dependencias:**
    ```bash
